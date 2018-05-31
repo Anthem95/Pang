@@ -3,7 +3,7 @@
 
 MainMenu::MenuResult MainMenu::Show(sf::RenderWindow& window) {
 	
-	//Load menu image from file
+	//Load menu image from static filename
 	sf::Image image;
 	image.loadFromFile("C:\\Users\\Jacqueline\\Documents\\Visual Studio 2015\\Projects\\Pang_\\Pang_\\Pang_\\mainmenu.png");
 	sf::Sprite sprite; 
@@ -42,20 +42,17 @@ MainMenu::MenuResult MainMenu::Show(sf::RenderWindow& window) {
 
 MainMenu::MenuResult MainMenu::HandleClick(int x, int y) {
 
-	std::list<MenuItem>::iterator it; // dafuq does this do?
-	// I think this just iterates through the list of menu items.
-	// idk why you'd use this though instead of just a standard counter,
-	// since there aren't that many options to choose from. 
+	std::list<MenuItem>::iterator it; // iterates through the list of menu items.
 
 	for (it = _menuItems.begin(); it != _menuItems.end(); it++) {
-		sf::Rect<int> menuItemRect = (*it).rect; //yeah, I need to look up this syntax.
+		sf::Rect<int> menuItemRect = (*it).rect; 
 		if (menuItemRect.height > y && menuItemRect.top < y && menuItemRect.left < x && menuItemRect.width > x) {
-			return (*it).action; //maybe this is like a location pointer? So wherever it is on the screen,
-			// if it's located within those bounds, find the action it's connected to and call it.
+			return (*it).action; //Location of click pointer
+			// if it's located within bounds, find the action that corresponds with the text and call it.
 		}
 	}
 
-	return Nothing; // return handle Nothing if the click wasn't within range of a button on the gui
+	return Nothing; // return handle Nothing if the click wasn't within range of a button on the ui window
 }
 
 MainMenu::MenuResult MainMenu::GetMenuResponse(sf::RenderWindow& window) {
